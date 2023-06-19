@@ -1,0 +1,33 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('transaction_details', function (Blueprint $table) {
+            $table->id();
+            $table->string('description')->require();
+            $table->foreignId('transaction_id')->constrained();
+            $table->double('qty')->require();
+            $table->double('price')->require();
+            $table->double('ppn')->require();
+            $table->double('sub_total')->require();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('transaction_details');
+    }
+};
