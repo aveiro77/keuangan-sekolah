@@ -73,6 +73,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\Due::factory()->create([
             'name' => 'Iuran Bulanan Kelas 1',
             'total_amount' => 400000,
+            'type' => 'SPP',
             'group' => '01',
             'year' => '2023',
         ]);
@@ -80,6 +81,23 @@ class DatabaseSeeder extends Seeder
         \App\Models\Due::factory()->create([
             'name' => 'Iuran Bulanan Kelas 2',
             'total_amount' => 500000,
+            'type' => 'SPP',
+            'group' => '02',
+            'year' => '2023',
+        ]);
+
+        \App\Models\Due::factory()->create([
+            'name' => 'Biaya Seragam',
+            'total_amount' => 80000,
+            'type' => 'NON SPP',
+            'group' => '01',
+            'year' => '2023',
+        ]);
+
+        \App\Models\Due::factory()->create([
+            'name' => 'Uang Gedung',
+            'total_amount' => 2000000,
+            'type' => 'NON SPP',
             'group' => '02',
             'year' => '2023',
         ]);
@@ -100,7 +118,7 @@ class DatabaseSeeder extends Seeder
             'amount' => 20000000,
         ]);
 
-        /*
+
         \App\Models\Transaction::create([
             'trn' => '#1',
             'date' => '2023-05-20',
@@ -114,6 +132,7 @@ class DatabaseSeeder extends Seeder
             'grand_total' => 150000
         ]);
 
+        /*
         \App\Models\TransactionDetail::create([
             'description' => 'Beli buku halus 10 pack',
             'transaction_id' => 1,

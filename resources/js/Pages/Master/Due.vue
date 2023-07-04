@@ -36,8 +36,8 @@
                                             <tr>
                                             <th scope="col" class="px-6 py-4">#</th>
                                             <th scope="col" class="px-6 py-4">Nama</th>
-                                            <th scope="col" class="px-6 py-4">Total</th>
-                                            <th scope="col" class="px-6 py-4">Rombel</th>
+                                            <th scope="col" class="px-6 py-4 text-right">Total</th>
+                                            <th scope="col" class="px-6 py-4 text-center">Rombel</th>
                                             <th scope="col" class="px-6 py-4">Tahun</th>
                                             <th scope="col" class="px-6 py-4">Action</th>
                                             </tr>
@@ -46,8 +46,8 @@
                                             <tr v-for="due in dues" :key="due" class="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-200">
                                                 <td class="whitespace-nowrap px-6 py-2 font-medium">{{ nomor++ }}</td>
                                                 <td class="whitespace-nowrap px-6 py-2">{{ due.name }}</td>
-                                                <td class="whitespace-nowrap px-6 py-2 align-content-end">{{ due.total_amount.toLocaleString('id-ID', { useGrouping: true, minimumFractionDigits: 0 }).replace(',', '.') }}</td>
-                                                <td class="whitespace-nowrap px-6 py-2">{{ due.group }}</td>
+                                                <td class="whitespace-nowrap px-6 py-2 text-right">{{ due.total_amount.toLocaleString('id-ID', { useGrouping: true, minimumFractionDigits: 0 }).replace(',', '.') }}</td>
+                                                <td class="whitespace-nowrap px-6 py-2 text-center">{{ due.group }}</td>
                                                 <td class="whitespace-nowrap px-6 py-2">{{ due.year }}</td>
                                                 <td class="whitespace-nowrap px-6 py-2">
                                                     <Link :href="`/master/iuran/${due.id}/edit`">Edit</Link> 

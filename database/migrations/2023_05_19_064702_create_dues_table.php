@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->double('total_amount')->require();
+            $table->string('type')->require();
             $table->string('group')->require();
             $table->string('year')->require();
             $table->timestamps();

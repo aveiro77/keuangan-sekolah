@@ -38,6 +38,7 @@
                             <div class="col-md-6" id="selectt">
                                 <label for="inputgroup" class="form-label">Rombongan Belajar</label>
                                 <select id="inputgroup" class="form-select" name="group" v-model="form.group">
+                                    <option value="">== Pilih ==</option>
                                     <option value="01">01</option>
                                     <option value="02">02</option>
                                     <option value="03">03</option>
@@ -59,6 +60,14 @@
                                 <span class="text-sm text-danger" v-if="form.errors.amount">{{form.errors.total_amount }}</span>
                             </div>
 
+                            <div class="col-md-6" id="selectt">
+                                <label for="type" class="form-label">Kelompok</label>
+                                <select id="type" class="form-select" name="type" v-model="form.type">
+                                    <option value="">== Pilih ==</option>
+                                    <option value="SPP">SPP</option>
+                                    <option value="NON SPP">NON SPP</option>
+                                </select>     
+                            </div>
 
                             <div class="col-12">
                                 <input type="hidden" name="year" v-model="form.year">
@@ -80,6 +89,7 @@ import { Head, Link, useForm } from '@inertiajs/vue3';
 const form = useForm({
     name: '',
     total_amount: '',
+    type: '',
     group: '',
     year: '',
     

@@ -62,6 +62,15 @@ Route::middleware('auth')->group(function () {
     })->name('transaksi');
 
     Route::get('/laporan/saldo-rekening', [ReportController::class, 'accountBalance'])->name('laporan.saldo-rekening');
+    Route::get('/laporan/saldo-rekening-print', [ReportController::class, 'accountBalancePrint'])->name('laporan.saldo-rekening-print');
+    Route::get('/laporan/iuran-spp', [ReportController::class, 'monthlyDues'])->name('laporan.iuran-spp');
+    Route::get('/laporan/iuran-spp-print', [ReportController::class, 'monthlyDuesPrint'])->name('laporan.iuran-spp-print');
+    Route::get('/laporan/pengeluaran', [ReportController::class, 'outcome'])->name('laporan.pengeluaran');
+    Route::get('/laporan/pengeluaran-print', [ReportController::class, 'outcomePrint'])->name('laporan.pengeluaran-print');
+    Route::get('/laporan/pemasukan', [ReportController::class, 'income'])->name('laporan.pemasukan');
+    Route::get('/laporan/pemasukan-print', [ReportController::class, 'incomePrint'])->name('laporan.pemasukan-print');
+    Route::get('/laporan/iuran-non-spp', [ReportController::class, 'nonSppDues'])->name('laporan.iuran-non-spp');
+    Route::get('/laporan/iuran-non-spp-print', [ReportController::class, 'nonSppDuesPrint'])->name('laporan.iuran-non-spp-print');
     Route::get('/laporan', function () {
         return Inertia::render('Report/Index');
     })->name('laporan');

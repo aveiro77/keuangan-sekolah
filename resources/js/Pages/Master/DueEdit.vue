@@ -38,12 +38,12 @@
                             <div class="col-md-6" id="selectt">
                                 <label for="inputgroup" class="form-label">Rombongan Belajar</label>
                                 <select id="inputgroup" class="form-select" name="group" v-model="form.group">
-                                    <option value="01">01</option>
-                                    <option value="02">02</option>
-                                    <option value="03">03</option>
-                                    <option value="04">04</option>
-                                    <option value="05">05</option>
-                                    <option value="06">06</option>
+                                    <option :value="`01`" :selected="form.type === `01`">01</option>
+                                    <option :value="`02`" :selected="form.type === `02`">02</option>
+                                    <option :value="`03`" :selected="form.type === `03`">03</option>
+                                    <option :value="`04`" :selected="form.type === `04`">04</option>
+                                    <option :value="`05`" :selected="form.type === `05`">05</option>
+                                    <option :value="`06`" :selected="form.type === `06`">06</option>
                                 </select>     
                             </div>
                            
@@ -57,6 +57,14 @@
                                 <label for="inputamount" class="form-label">Jumlah</label>
                                 <input type="number" class="form-control" id="inputamount" name="total_amount" v-model="form.total_amount">
                                 <span class="text-sm text-danger" v-if="form.errors.total_amount">{{form.errors.total_amount }}</span>
+                            </div>
+
+                            <div class="col-md-6" id="selectt">
+                                <label for="type" class="form-label">Kelompok</label>
+                                <select id="type" class="form-select" name="type" v-model="form.type">
+                                    <option :value="`SPP`" :selected="form.type === `SPP`">SPP</option>
+                                    <option :value="`NON SPP`" :selected="form.type === `NON SPP`">NON SPP</option>
+                                </select>     
                             </div>
 
 
@@ -79,6 +87,7 @@ import { Head, Link, useForm } from '@inertiajs/vue3';
 const form = useForm({
     name: props.due.name,
     total_amount: props.due.total_amount,
+    type: props.due.type,
     group: props.due.group,
     year: props.due.year
 });

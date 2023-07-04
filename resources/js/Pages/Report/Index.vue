@@ -16,26 +16,26 @@
                     </div>
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4 md:mb-0 md:m-2 w-full md:w-1/2">
                         <div class="p-6 text-gray-900">
-                            <a href="/master/siswa">Iuran SPP</a>
+                            <a href="/laporan/iuran-spp/">Iuran SPP</a>
                         </div>
                     </div>
                 </div>
                 <div class="flex flex-col md:flex-row">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4 md:mb-0 md:m-2 w-full md:w-1/2">
                         <div class="p-6 text-gray-900">
-                            <a href="/master/iuran">Iuran Non SPP</a>
+                            <a href="/laporan/iuran-non-spp/">Iuran NON SPP</a>
                         </div>
                     </div>
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4 md:mb-0 md:m-2 w-full md:w-1/2">
                         <div class="p-6 text-gray-900">
-                            <a href="/master/rekanan">Pengeluaran (Operasional)</a>
+                            <a href="/laporan/pengeluaran/">Pengeluaran</a>
                         </div>
                     </div>
                 </div>
                 <div class="flex flex-col md:flex-row">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4 md:mb-0 md:m-2 w-full md:w-1/2">
                         <div class="p-6 text-gray-900">
-                            <a href="/master/iuran">Pemasukan (Lain)</a>
+                            <a href="/laporan/pemasukan/">Pemasukan</a>
                         </div>
                     </div>
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4 md:mb-0 md:m-2 w-full md:w-1/2">

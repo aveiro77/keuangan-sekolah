@@ -38,6 +38,7 @@ class DueController extends Controller
         $request->validate([
             'name' => 'required|max:100',
             'total_amount' => 'required',
+            'type' => 'required',
             'group' => 'required',
             'year' => 'required'
         ]);
@@ -45,6 +46,7 @@ class DueController extends Controller
         Due::create([
             'name' => $request->name,
             'total_amount' => $request->total_amount,
+            'type' => $request->type,
             'group' => $request->group,
             'year' => $request->year
         ]);
@@ -80,6 +82,7 @@ class DueController extends Controller
         $db->update([
             'name' => $request->name,
             'total_amount' => $request->total_amount,
+            'type' => $request->type,
             'group' => $request->group,
             'year' => $request->year
         ]);
