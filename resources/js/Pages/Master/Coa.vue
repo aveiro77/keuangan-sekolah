@@ -32,28 +32,28 @@
                                 <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
                                     <div class="overflow-hidden">
                                         <table class="table table-sm min-w-full text-left text-sm font-light">
-                                        <thead class="border-b font-medium dark:border-neutral-500">
-                                            <tr>
-                                            <th scope="col" class="px-6 py-4">#</th>
-                                            <th scope="col" class="px-6 py-4">Kode</th>
-                                            <th scope="col" class="px-6 py-4">Nama</th>
-                                            <th scope="col" class="px-6 py-4 text-right">Saldo Awal</th>
-                                            <th scope="col" class="px-6 py-4 text-center">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr v-for="coa in coas" :key="coa" class="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-200">
-                                                <td class="whitespace-nowrap px-6 py-2 font-medium">{{ coa.year }}</td>
-                                                <td class="whitespace-nowrap px-6 py-2">{{ coa.code }}</td>
-                                                <td class="whitespace-nowrap px-6 py-2">{{ coa.name }}</td>
-                                                <td class="whitespace-nowrap px-6 py-2 text-right">{{ coa.initial_balance.toLocaleString('id-ID', { useGrouping: true, minimumFractionDigits: 0 }).replace(',', '.') }}</td>
-                                                <td class="whitespace-nowrap px-6 py-2 text-center">
-                                                    <Link :href="`/master/rekening/${coa.id}/edit`">Edit</Link> 
-                                                    |
-                                                    <Link :href="`/master/rekening/${coa.id}`" method="delete" onclick="return confirm('Anda yakin??')">Hapus</Link> 
-                                                </td>
-                                            </tr>
-                                        </tbody>
+                                            <thead class="border-b font-medium dark:border-neutral-500">
+                                                <tr>
+                                                <th scope="col" class="px-6 py-4">Periode</th>
+                                                <th scope="col" class="px-6 py-4">Kode</th>
+                                                <th scope="col" class="px-6 py-4">Nama</th>
+                                                <th scope="col" class="px-6 py-4 text-right">Saldo Awal</th>
+                                                <th scope="col" class="px-6 py-4 text-center">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="coa in coas" :key="coa" class="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-200">
+                                                    <td class="whitespace-nowrap px-6 py-2 font-medium">{{ coa.active_year.period }}</td>
+                                                    <td class="whitespace-nowrap px-6 py-2">{{ coa.code }}</td>
+                                                    <td class="whitespace-nowrap px-6 py-2">{{ coa.name }}</td>
+                                                    <td class="whitespace-nowrap px-6 py-2 text-right">{{ coa.initial_balance.toLocaleString('id-ID', { useGrouping: true, minimumFractionDigits: 0 }).replace(',', '.') }}</td>
+                                                    <td class="whitespace-nowrap px-6 py-2 text-center">
+                                                        <Link :href="`/master/rekening/${coa.id}/edit`">Edit</Link> 
+                                                        |
+                                                        <Link :href="`/master/rekening/${coa.id}`" method="delete" onclick="return confirm('Anda yakin??')">Hapus</Link> 
+                                                    </td>
+                                                </tr>
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
@@ -64,6 +64,10 @@
                 <!--end content-->
             </div>
         </div>
+
+        <template #footer>
+            <h2 class="text-gray-500">Periode : {{ period }}</h2>
+        </template>
     </AuthenticatedLayout>
 </template>
 <script setup>
@@ -73,6 +77,7 @@ import { isIntegerKey } from '@vue/shared';
 
 defineProps({
     coas: Object,
+    period: String,
 })
 
 let nomor = 1 ;

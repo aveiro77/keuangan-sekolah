@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Http\Requests\UpdateDueRequest;
 use App\Models\Due;
+use App\Models\ActiveYear;
 use Inertia\Inertia;
 
 class DueController extends Controller
@@ -15,10 +15,11 @@ class DueController extends Controller
      */
     public function index()
     {
-        $active_year = DB::table('active_year')->where('active', '=', '1')->pluck('year');
-        $data = Due::where('year', $active_year)->get();
+        $active_year = ActiveYear::where('active', 1)->first();
+        $data = Due::with('active_year')->where('active_year_id', $active_year->id)->get();
         return Inertia::render('Master/Due', [
             'dues' => $data,
+            'period' => $active_year->period,
         ]);
     }
 
@@ -27,7 +28,11 @@ class DueController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Master/DueCreate');
+        $active_year = ActiveYear::where('active', 1)->first();
+        return Inertia::render('Master/DueCreate', [
+            'period' => $active_year->period,
+            'active_year_id' => $active_year->id,
+        ]);
     }
 
     /**
@@ -40,7 +45,7 @@ class DueController extends Controller
             'total_amount' => 'required',
             'type' => 'required',
             'group' => 'required',
-            'year' => 'required'
+            'active_year_id' => 'required'
         ]);
 
         Due::create([
@@ -48,7 +53,7 @@ class DueController extends Controller
             'total_amount' => $request->total_amount,
             'type' => $request->type,
             'group' => $request->group,
-            'year' => $request->year
+            'active_year_id' => $request->active_year_id
         ]);
 
         return redirect()->route('iuran.index');
@@ -67,8 +72,11 @@ class DueController extends Controller
      */
     public function edit($id)
     {
+        $active_year = ActiveYear::where('active', 1)->first();
         $data = Due::find($id);
         return Inertia::render('Master/DueEdit', [
+            'period' => $active_year->period,
+            'active_year_id' => $active_year->id,
             'due' => $data
         ]);
     }
@@ -84,7 +92,7 @@ class DueController extends Controller
             'total_amount' => $request->total_amount,
             'type' => $request->type,
             'group' => $request->group,
-            'year' => $request->year
+            'active_year_id' => $request->active_year_id
         ]);
 
         return redirect()->route('iuran.index');

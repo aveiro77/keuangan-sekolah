@@ -41,6 +41,9 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('laporan')" :active="route().current('laporan')">
                                     Laporan
                                 </NavLink>
+                                <NavLink :href="route('konfigurasi')" :active="route().current('konfigurasi')">
+                                    Konfigurasi
+                                </NavLink>
                             </div>
                         </div>
 
@@ -124,6 +127,18 @@ const showingNavigationDropdown = ref(false);
                         <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
                         </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('master')" :active="route().current('master')">
+                            Master
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('transaksi')" :active="route().current('transaksi')">
+                            Transaksi
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('laporan')" :active="route().current('laporan')">
+                            Laporan
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('konfigurasi')" :active="route().current('konfigurasi')">
+                            Konfigurasi
+                        </ResponsiveNavLink>
                     </div>
 
                     <!-- Responsive Settings Options -->
@@ -156,6 +171,13 @@ const showingNavigationDropdown = ref(false);
             <main>
                 <slot />
             </main>
+
+            <!-- Page Footer -->
+            <footer class="bg-white shadow fixed-bottom" v-if="$slots.header">
+                <div class="max-w-7xl mx-auto py-3 sm:px-4 lg:px-6">{{ $page.props.auth.ApplicationLogo }}
+                    <slot name="footer" />
+                </div>
+            </footer>
         </div>
     </div>
 </template>

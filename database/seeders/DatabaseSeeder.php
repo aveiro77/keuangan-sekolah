@@ -28,24 +28,44 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('Jumhan01'),
         ]);
 
+        \App\Models\ActiveYear::create([
+            'year' => '2020', 'period' => '2019-2020', 'active' => '0',
+        ]);
+
+        \App\Models\ActiveYear::create([
+            'year' => '2021', 'period' => '2020-2021', 'active' => '0',
+        ]);
+
+        \App\Models\ActiveYear::create([
+            'year' => '2022', 'period' => '2021-2022', 'active' => '0',
+        ]);
+
+        \App\Models\ActiveYear::create([
+            'year' => '2023', 'period' => '2022-2023', 'active' => '1',
+        ]);
+
+        \App\Models\ActiveYear::create([
+            'year' => '2024', 'period' => '2023-2024', 'active' => '0',
+        ]);
+
         \App\Models\Coa::factory()->create([
             'code' => '1.1',
             'name' => 'Kas Besar',
-            'year' => '2023',
+            'active_year_id' => 4,
             'initial_balance' => 0,
         ]);
 
         \App\Models\Coa::factory()->create([
             'code' => '1.2',
             'name' => 'Kas Kecil',
-            'year' => '2023',
+            'active_year_id' => 4,
             'initial_balance' => 0,
         ]);
 
         \App\Models\Coa::factory()->create([
             'code' => '1.3',
             'name' => 'Bank NISP XXX',
-            'year' => '2023',
+            'active_year_id' => 4,
             'initial_balance' => 1000000,
         ]);
 
@@ -53,21 +73,24 @@ class DatabaseSeeder extends Seeder
             'nisn' => 'JT/NISN/001',
             'fullname' => 'Victor Jansen',
             'group' => '01',
-            'year' => '2023',
+            'active_year_id' => 4,
+            'temp_status' => 'NK',
         ]);
 
         \App\Models\Student::factory()->create([
             'nisn' => 'JT/NISN/002',
             'fullname' => 'Victor Axelsen',
             'group' => '01',
-            'year' => '2023',
+            'active_year_id' => 4,
+            'temp_status' => 'NK',
         ]);
 
         \App\Models\Student::factory()->create([
             'nisn' => 'JT/NISN/003',
             'fullname' => 'Lee Chong Wei',
             'group' => '01',
-            'year' => '2023',
+            'active_year_id' => 4,
+            'temp_status' => 'NK',
         ]);
 
         \App\Models\Due::factory()->create([
@@ -75,7 +98,7 @@ class DatabaseSeeder extends Seeder
             'total_amount' => 400000,
             'type' => 'SPP',
             'group' => '01',
-            'year' => '2023',
+            'active_year_id' => 4,
         ]);
 
         \App\Models\Due::factory()->create([
@@ -83,7 +106,7 @@ class DatabaseSeeder extends Seeder
             'total_amount' => 500000,
             'type' => 'SPP',
             'group' => '02',
-            'year' => '2023',
+            'active_year_id' => 4,
         ]);
 
         \App\Models\Due::factory()->create([
@@ -91,7 +114,7 @@ class DatabaseSeeder extends Seeder
             'total_amount' => 80000,
             'type' => 'NON SPP',
             'group' => '01',
-            'year' => '2023',
+            'active_year_id' => 4,
         ]);
 
         \App\Models\Due::factory()->create([
@@ -99,7 +122,7 @@ class DatabaseSeeder extends Seeder
             'total_amount' => 2000000,
             'type' => 'NON SPP',
             'group' => '02',
-            'year' => '2023',
+            'active_year_id' => 4,
         ]);
 
 
@@ -142,12 +165,5 @@ class DatabaseSeeder extends Seeder
             'sub_total' => 150000,
         ]);
         */
-
-        DB::table('active_year')->insert([
-            ['id' => 1, 'year' => '2020', 'active' => '0'],
-            ['id' => 2, 'year' => '2021', 'active' => '0'],
-            ['id' => 3, 'year' => '2022', 'active' => '0'],
-            ['id' => 4, 'year' => '2023', 'active' => '1'],
-        ]);
     }
 }

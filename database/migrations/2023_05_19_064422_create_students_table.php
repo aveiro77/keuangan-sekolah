@@ -13,11 +13,14 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->string('nisn')->unique();
+            $table->string('nisn')->require();
             $table->string('fullname')->require();
             $table->string('group')->require();
-            $table->string('year')->require();
+            $table->foreignId('active_year_id')->constrained();
+            $table->string('temp_status')->nullable();
             $table->timestamps();
+
+            $table->unique(['nisn', 'active_year_id']);
         });
     }
 

@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('coas', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->unique();
+            $table->string('code')->require();
             $table->text('name')->require();
-            $table->string('year')->require();
+            $table->foreignId('active_year_id')->constrained();
             $table->double('initial_balance')->require();
             $table->timestamps();
+            $table->unique(['code', 'active_year_id']);
         });
     }
 

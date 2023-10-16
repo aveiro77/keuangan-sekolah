@@ -47,12 +47,17 @@
                             </div>
 
                             <div class="col-md-6">
-                                <label for="inputyear" class="form-label">Tahun</label>
-                                <input type="number" class="form-control" id="inputyear" name="year" v-model="form.year" placeholder="ex: 2023">
-                                <span class="text-sm text-danger" v-if="form.errors.year">{{form.errors.year }}</span>
+                                <label for="inputperiod" class="form-label">Periode</label>
+                                <input type="text" class="form-control" id="inputperiod" name="priod" v-model="form.period" disabled>
+                                <span class="text-sm text-danger" v-if="form.errors.period">{{form.errors.period }}</span>
                             </div>
-                            <div class="col-12 pt-3">
-                                <button type="submit" class="btn w-1/2 btn-outline-dark rounded-0">Simpan</button>
+                            <div class="col-md-6"></div>
+                            <div class="col-6 pt-3">
+                                <input type="hidden" class="form-control" id="active_year_id" name="active_year_id" v-model="form.active_year_id">
+                                <button type="submit" class="btn w-full btn-outline-dark rounded-0">Simpan</button>
+                            </div>
+                            <div class="col-md-6">
+                                <Link href="/master/siswa" class="btn btn-outline-primary rounded-0 px-5 w-full mt-3">Batal</Link>
                             </div>
                         </form>
                         <!---->
@@ -60,6 +65,10 @@
                 </div>
             </div>
         </div>
+
+        <template #footer>
+            <h2 class="text-gray-500">Periode : {{ form.period }}</h2>
+        </template>
     </AuthenticatedLayout>
 </template>
 <script setup>
@@ -72,7 +81,8 @@ const form = useForm({
     nisn: props.student.nisn,
     fullname: props.student.fullname,
     group: props.student.group,
-    year: props.student.year
+    active_year_id: props.student.active_year_id,
+    period: props.student.active_year.period,
 });
 
 const props = defineProps({

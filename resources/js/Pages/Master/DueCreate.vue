@@ -31,9 +31,8 @@
                         <!---->
                         <form class="row g-3" @submit.prevent="form.post('/master/iuran')">
                             <div class="col-md-6">
-                                <label for="inputyear" class="form-label">Tahun</label>
-                                <input type="number" class="form-control" id="inputyear" name="year" v-model="form.year" placeholder="ex: 2023">
-                                <span class="text-sm text-danger" v-if="form.errors.year">{{ form.errors.year }}</span>
+                                <label for="inputyear" class="form-label">Periode</label>
+                                <input type="text" class="form-control" id="inputperiod" name="period" v-model="form.period" disabled>
                             </div>
                             <div class="col-md-6" id="selectt">
                                 <label for="inputgroup" class="form-label">Rombongan Belajar</label>
@@ -70,7 +69,7 @@
                             </div>
 
                             <div class="col-12">
-                                <input type="hidden" name="year" v-model="form.year">
+                                <input type="hidden" name="active_year_id" v-model="form.active_year_id">
                                 <button type="submit" class="btn btn-outline-dark rounded-0 w-1/2 mt-3">Simpan</button>
                             </div>
                         </form>
@@ -79,19 +78,28 @@
                 </div>
             </div>
         </div>
+
+        <template #footer>
+            <h2 class="text-gray-500">Periode : {{ form.period }}</h2>
+        </template>
     </AuthenticatedLayout>
 </template>
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
+const props = defineProps({
+    period: String,
+    active_year_id: Number,
+});
 
 const form = useForm({
     name: '',
     total_amount: '',
     type: '',
     group: '',
-    year: '',
+    period: props.period,
+    active_year_id: props.active_year_id,
     
 });
 

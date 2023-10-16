@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Membuat Laporan PDF Dengan DOMPDF Laravel</title>
+    <title>{{ $title }}</title>
     <style type="text/css">
         table tr td,
         table tr th {
@@ -19,7 +19,7 @@
 <body>
 
     <div class="text-center">
-        <h5 class="mb-4">Laporan Saldo Rekening Tahun {{ $year }}</h5>
+        <h5 class="mb-4">{{ $title }}</h5>
     </div>
 
     <table class="table table-bordered">
@@ -27,7 +27,6 @@
             <tr>
                 <!--<th>No</th>-->
                 <th>Rek</th>
-                <th>Tahun</th>
                 <th>Nama</th>
                 <th>Awal</th>
                 <th>Jan</th>
@@ -51,7 +50,6 @@
             <tr>
                 <!--<td>{{ $i++ }}</td>-->
                 <td>{{ $r->code }}</td>
-                <td>{{ $r->year }}</td>
                 <td>{{ $r->name }}</td>
                 <td class="text-right">{{ number_format($r->M00) }}</td>
                 <td class="text-right">{{ number_format($r->M01) }}</td>

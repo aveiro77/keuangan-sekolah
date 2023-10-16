@@ -25,7 +25,7 @@
         </template>
 
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 w-1/2">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 w-1/3">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900" >
                         <!---->
@@ -36,17 +36,24 @@
                                 <span class="text-sm text-danger" v-if="form.errors.code">{{form.errors.code }}</span>
                             </div>
                             <div class="col-md-6">
-                                <label for="inputTCode" class="form-label">Transaction Code (TCode)</label>
-                                <input type="text" class="form-control" id="inputTCode" name="inputTCode" v-model="form.tcode">
-                                <span class="text-sm text-danger" v-if="form.errors.tcode">{{form.errors.tcode }}</span>
+                                <label for="inputTCode" class="form-label">Periode</label>
+                                <input type="text" class="form-control" id="inputTCode" name="inputTCode" v-model="form.period" disabled>
                             </div>
                             <div class="col-12">
                                 <label for="inputName" class="form-label">Nama Rekening</label>
                                 <input type="text" class="form-control" id="inputName" name="inputName" v-model="form.name">
                                 <span class="text-sm text-danger" v-if="form.errors.name">{{form.errors.name }}</span>
                             </div>
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-outline-dark rounded-0 w-1/2 mt-3">Simpan</button>
+                            <div class="col-md-9">
+                                <label for="initialBalance" class="form-label">Saldo Awal</label>
+                                <input type="text" class="form-control" id="initial" name="initial_balance" v-model="form.initial_balance">
+                                <span class="text-sm text-danger" v-if="form.errors.initial_balance">{{form.errors.initial_balance }}</span>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-sm btn-outline-dark rounded-0 px-5 w-full mt-3">Simpan</button>
+                            </div>
+                            <div class="col-md-6">
+                                <Link href="/master/rekening" class="btn btn-sm btn-outline-primary rounded-0 px-5 w-full mt-3">Batal</Link>
                             </div>
                         </form>
                         <!---->
@@ -54,6 +61,10 @@
                 </div>
             </div>
         </div>
+
+        <template #footer>
+            <h2 class="text-gray-500">Periode : {{ form.period }}</h2>
+        </template>
     </AuthenticatedLayout>
 </template>
 <script setup>
@@ -64,8 +75,9 @@ var curYear = new Date().getFullYear();
 
 const form = useForm({
     code: props.coa.code,
-    tcode: props.coa.tcode,
-    name: props.coa.name
+    name: props.coa.name,
+    period: props.coa.active_year.period,
+    initial_balance: props.coa.initial_balance,
 });
 
 const props = defineProps({

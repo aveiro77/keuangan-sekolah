@@ -49,9 +49,9 @@
                                                 <td class="whitespace-nowrap px-6 py-2">{{ partner.name }}</td>
                                                 <td class="whitespace-nowrap px-6 py-2">{{ partner.address }}</td>
                                                 <td class="whitespace-nowrap px-6 py-2">
-                                                    <Link :href="`/transaksi/opr/${partner.id}/edit`">Edit</Link> 
+                                                    <Link :href="`/master/rekanan/${partner.id}/edit`">Edit</Link> 
                                                     |
-                                                    <Link :href="`/transaksi/opr/${partner.id}`" method="delete" onclick="return confirm('Anda yakin??')">Hapus</Link> 
+                                                    <Link :href="`/master/rekanan/${partner.id}`" method="delete" onclick="return confirm('Anda yakin??')">Hapus</Link> 
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -66,6 +66,10 @@
                 <!--end content-->
             </div>
         </div>
+
+        <template #footer>
+            <h2 class="text-gray-500">Periode : {{ period }}</h2>
+        </template>
     </AuthenticatedLayout>
 </template>
 <script setup>
@@ -78,7 +82,8 @@ import Pagination from '@/Components/Pagination.vue';
 
 const props = defineProps({
     partners: Object,
-    filters: Object
+    filters: Object,
+    period: String,
 })
 
 let nomor = 1;

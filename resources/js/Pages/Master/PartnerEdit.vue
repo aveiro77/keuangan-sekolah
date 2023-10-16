@@ -40,8 +40,11 @@
                                 <input type="text" class="form-control" id="address" name="address" v-model="form.address">
                                 <span class="text-sm text-danger" v-if="form.errors.address">{{form.errors.address }}</span>
                             </div>                            
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-outline-dark rounded-0 w-1/2 mt-3">Simpan</button>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-outline-dark rounded-0 w-full mt-3">Simpan</button>
+                            </div>
+                            <div class="col-md-6">
+                                <Link href="/master/rekanan" class="btn btn-outline-primary rounded-0 px-5 w-full mt-3">Batal</Link>
                             </div>
                         </form>
                         <!---->
@@ -49,6 +52,10 @@
                 </div>
             </div>
         </div>
+
+        <template #footer>
+            <h2 class="text-gray-500">Periode : {{ props.period }}</h2>
+        </template>
     </AuthenticatedLayout>
 </template>
 <script setup>
@@ -64,6 +71,7 @@ const form = useForm({
 
 const props = defineProps({
     partner: Object,
+    period: String,
 })
 
 

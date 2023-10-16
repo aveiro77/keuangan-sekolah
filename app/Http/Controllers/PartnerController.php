@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ActiveYear;
 use App\Models\Partner;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -13,12 +14,14 @@ class PartnerController extends Controller
      */
     public function index(Request $request)
     {
+        $active_year = ActiveYear::where('active', 1)->first();
         $data = Partner::when($request->search, function ($query, $search) {
             $query->where('name', 'like', '%' . $search . '%')->orWhere('address', 'like', '%' . $search . '%');
         })->paginate(8)->withQueryString();
         return Inertia::render('Master/Partner', [
             'partners' => $data,
             'filters' => $request->only('search'),
+            'period' => $active_year->period,
         ]);
     }
 
@@ -27,7 +30,10 @@ class PartnerController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Master/PartnerCreate');
+        $active_year = ActiveYear::where('active', 1)->first();
+        return Inertia::render('Master/PartnerCreate', [
+            'period' => $active_year->period,
+        ]);
     }
 
     /**
@@ -61,9 +67,11 @@ class PartnerController extends Controller
      */
     public function edit($id)
     {
+        $active_year = ActiveYear::where('active', 1)->first();
         $data = Partner::find($id);
         return Inertia::render('Master/PartnerEdit', [
-            'partner' => $data
+            'partner' => $data,
+            'period' => $active_year->period,
         ]);
     }
 

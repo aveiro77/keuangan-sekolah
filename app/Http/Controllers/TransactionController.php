@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Partner;
 use App\Models\Coa;
 use App\Models\Transaction;
+use App\Models\ActiveYear;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -17,10 +18,10 @@ class TransactionController extends Controller
      */
     public function index(Request $request)
     {
-        $active_year = DB::table('active_year')->where('active', 1)->pluck('year');
+        $active_year = ActiveYear::where('active', 1)->first();
         $data = Transaction::with(['User', 'Coa', 'Partner'])
             ->orderBy('id', 'desc')
-            ->whereYear('date', $active_year[0])
+            ->whereYear('date', $active_year->year)
             ->when($request->search, function ($query, $search) {
                 $query->whereHas('Coa', function ($subQuery) use ($search) {
                     $subQuery->where('name', 'like', "%{$search}%");
@@ -33,6 +34,7 @@ class TransactionController extends Controller
         return Inertia::render('Transaction/Opr', [
             'transactions' => $data,
             'filters' => $request->only('search'),
+            'period' => $active_year->period,
         ]);
     }
 
@@ -41,12 +43,13 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        $active_year = DB::table('active_year')->where('active', 1)->pluck('year');
+        $active_year = ActiveYear::where('active', 1)->first();
         $partners = Partner::all();
-        $coas = Coa::where('year', $active_year[0])->get();
+        $coas = Coa::where('active_year_id', $active_year->id)->get();
         return Inertia::render('Transaction/OprCreate', [
             'partners' => $partners,
             'coas' => $coas,
+            'period' => $active_year->period,
         ]);
     }
 
@@ -103,12 +106,13 @@ class TransactionController extends Controller
     {
         $trx = Transaction::find($id);
         $partners = Partner::all();
-        $active_year = DB::table('active_year')->where('active', 1)->pluck('year');
-        $coas = Coa::where('year', $active_year[0])->get();
+        $active_year = ActiveYear::where('active', 1)->first();
+        $coas = Coa::where('active_year_id', $active_year->id)->get();
         return Inertia::render('Transaction/OprEdit', [
             'transaction' => $trx,
             'partners' => $partners,
             'coas' => $coas,
+            'period' => $active_year->period,
         ]);
     }
 

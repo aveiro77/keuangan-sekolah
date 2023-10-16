@@ -7,6 +7,7 @@ use App\Models\Mutation;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use App\Models\Coa;
+use App\Models\ActiveYear;
 use Illuminate\Support\Facades\Auth;
 
 class MutationController extends Controller
@@ -16,9 +17,9 @@ class MutationController extends Controller
      */
     public function index(Request $request)
     {
-        $active_year = DB::table('active_year')->where('active', 1)->pluck('year');
+        $active_year = ActiveYear::where('active', 1)->first();
         $data = Mutation::with(['User', 'Coa'])
-            ->whereYear('date', $active_year)
+            ->whereYear('date', $active_year->year)
             ->orderBy('id', 'desc')
             ->when($request->search, function ($query, $search) {
                 $query->whereHas('Coa', function ($subQuery) use ($search) {
@@ -31,6 +32,7 @@ class MutationController extends Controller
         return Inertia::render('Transaction/Mutation', [
             'mutations' => $data,
             'filters' => $request->only('search'),
+            'period' => $active_year->period,
         ]);
     }
 
@@ -39,10 +41,11 @@ class MutationController extends Controller
      */
     public function create()
     {
-        $active_year = DB::table('active_year')->where('active', 1)->pluck('year');
-        $coas = Coa::where('year', $active_year[0])->get();
+        $active_year = ActiveYear::where('active', 1)->first();
+        $coas = Coa::where('active_year_id', $active_year->id)->get();
         return Inertia::render('Transaction/MutationCreate', [
             'coas' => $coas,
+            'period' => $active_year->period,
         ]);
     }
 
@@ -113,11 +116,13 @@ class MutationController extends Controller
      */
     public function edit($id)
     {
+        $active_year = ActiveYear::where('active', 1)->first();
         $trx = Mutation::find($id);
-        $coas = Coa::all();
+        $coas = Coa::where('active_year_id', $active_year->id)->get();
         return Inertia::render('Transaction/MutationEdit', [
             'mutation' => $trx,
             'coas' => $coas,
+            'period' => $active_year->period,
         ]);
     }
 
@@ -126,7 +131,6 @@ class MutationController extends Controller
      */
     public function update(Request $request, Mutation $mutation, $id)
     {
-
         // update stack 1
         $db_stack1 = Mutation::find($id);
         $db_stack1->update([

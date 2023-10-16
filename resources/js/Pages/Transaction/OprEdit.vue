@@ -82,6 +82,10 @@
                 </div>
             </div>
         </div>
+
+        <template #footer>
+            <h2 class="text-gray-500">Periode : {{ period }}</h2>
+        </template>
     </AuthenticatedLayout>
 </template>
 
@@ -102,6 +106,7 @@ const props = defineProps({
     partners: Object,
     coas: Object,
     transaction: Object,
+    period: String,
 });
 
 </script>

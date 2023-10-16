@@ -25,7 +25,7 @@
                         <div class="flex flex-col">
                             <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
                                 <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-                                    <strong><h2 class="text-center mb-4"><u>Laporan Pengeluaran Tahun {{ year }}</u></h2></strong>
+                                    <strong><h2 class="text-center mb-4"><u>{{ title }}</u></h2></strong>
                                     <div class="overflow-hidden">
                                         <table class="table table-sm min-w-full text-left text-sm font-light">
                                         <thead class="border-b font-medium dark:border-neutral-500">
@@ -58,6 +58,10 @@
             </div>
         </div>
 
+
+        <template #footer>
+            <h2 class="text-gray-500">Periode : {{ period }}</h2>
+        </template>
     </AuthenticatedLayout>
 </template>
 <script setup>
@@ -66,6 +70,7 @@ import { Head, Link } from '@inertiajs/vue3';
 
 defineProps({
     data: Object,
-    year: Object,
+    title: Object,
+    period: String,
 })
 </script>

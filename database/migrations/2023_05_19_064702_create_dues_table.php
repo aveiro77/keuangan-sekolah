@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('dues', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name')->require();
             $table->double('total_amount')->require();
             $table->string('type')->require();
             $table->string('group')->require();
-            $table->string('year')->require();
+            $table->foreignId('active_year_id')->constrained();
             $table->timestamps();
+
+            $table->unique(['name', 'active_year_id']);
         });
     }
 

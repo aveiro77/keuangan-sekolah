@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use App\Models\Coa;
+use App\Models\ActiveYear;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Action;
 use Inertia\Inertia;
 
 class CoaController extends Controller
@@ -14,10 +16,11 @@ class CoaController extends Controller
      */
     public function index()
     {
-        $active_year = DB::table('active_year')->where('active', '=', '1')->pluck('year');
-        $data = Coa::where('year', $active_year)->get();
+        $active_year = ActiveYear::where('active', 1)->first();
+        $data = Coa::with('active_year')->where('active_year_id', $active_year->id)->get();
         return Inertia::render('Master/Coa', [
-            'coas' => $data
+            'coas' => $data,
+            'period' => $active_year->period
         ]);
     }
 
@@ -26,7 +29,11 @@ class CoaController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Master/CoaCreate');
+        $active_year = ActiveYear::where('active', 1)->first();
+        return Inertia::render('Master/CoaCreate', [
+            'active_year_id' => $active_year->id,
+            'period' => $active_year->period,
+        ]);
     }
 
     /**
@@ -35,17 +42,19 @@ class CoaController extends Controller
     public function store(Request $request)
     {
         //return $request->all();
-
         $request->validate([
             'code' => 'required|unique:coas|max:25',
             'name' => 'required',
-            'year' => 'required'
+            'active_year_id' => 'required',
+            'initial_balance' => 'required'
         ]);
 
         Coa::create([
             'code' => $request->code,
             'name' => $request->name,
-            'year' => $request->year
+            'active_year_id' => $request->active_year_id,
+            'initial_balance' => $request->initial_balance,
+            ''
         ]);
 
         return redirect()->route('rekening.index');
@@ -64,7 +73,7 @@ class CoaController extends Controller
      */
     public function edit($id)
     {
-        $data = Coa::find($id);
+        $data = Coa::with('active_year')->find($id);
         return Inertia::render('Master/CoaEdit', [
             'coa' => $data
         ]);
@@ -78,8 +87,8 @@ class CoaController extends Controller
         $db = Coa::find($id);
         $db->update([
             'code' => $request->code,
-            'tcode' => $request->tcode,
             'name' => $request->name,
+            'initial_balance' => $request->initial_balance
         ]);
 
         return redirect()->route('rekening.index');

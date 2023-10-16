@@ -80,6 +80,10 @@
                 </div>
             </div>
         </div>
+
+        <template #footer>
+            <h2 class="text-gray-500">Periode : {{ props.period }}</h2>
+        </template>
     </AuthenticatedLayout>
 </template>
 <script setup>
@@ -88,6 +92,7 @@ import { Head, Link, useForm } from '@inertiajs/vue3';
 
 const props = defineProps({
     coas: Object,
+    period: String,
 })
 
 const form = useForm({

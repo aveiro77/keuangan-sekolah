@@ -79,6 +79,10 @@
                 </div>
             </div>
         </div>
+
+        <template #footer>
+            <h2 class="text-gray-500">Periode : {{ props.period }}</h2>
+        </template>
     </AuthenticatedLayout>
 </template>
 
@@ -98,6 +102,7 @@ const form = useForm({
 const props = defineProps({
     coas: Object,
     income: Object,
+    period: String,
 });
 
 </script>

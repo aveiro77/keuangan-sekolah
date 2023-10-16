@@ -83,42 +83,9 @@
         </div>
 
       
-        <!-- belum dipake
-        <div class="py-1">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 w-1/2">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900">
-                        <table class="table table-sm min-w-full text-left text-sm font-light" id="table">
-                            <thead class="border-b font-medium dark:border-neutral-500">
-                            <tr>
-                                <th scope="col" class="px-6 py-4">Deskripsi</th>
-                                <th scope="col" class="px-6 py-4">Jumlah</th>
-                                <th scope="col" class="px-6 py-4">Sub Total</th>
-                                <th scope="col" class="px-6 py-4">Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr class="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-200">
-                                <td class="whitespace-nowrap px-6 py-2">
-                                <input type="text" name="inputs[0]['description']" class="form-control">
-                                </td>
-                                <td class="whitespace-nowrap px-6 py-2">
-                                <input type="text" name="inputs[0]['qty']" class="form-control">
-                                </td>
-                                <td class="whitespace-nowrap px-6 py-2">
-                                <input type="text" name="inputs[0]['sub_total']" class="form-control">
-                                </td>
-                                <td class="whitespace-nowrap px-6 py-2">
-                                <button type="button" name="add" id="add" class="btn btn-outline-dark p-2 rounded-0">Add more</button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        -->
+        <template #footer>
+            <h2 class="text-gray-500">Periode : {{ period }}</h2>
+        </template>
     </AuthenticatedLayout>
 </template>
 
@@ -129,6 +96,7 @@ import { Head, Link, useForm } from '@inertiajs/vue3';
 const props = defineProps({
     partners: Object,
     coas: Object,
+    period: String,
 })
 
 const form = useForm({

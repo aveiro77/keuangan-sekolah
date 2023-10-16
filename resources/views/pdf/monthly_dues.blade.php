@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Membuat Laporan PDF Dengan DOMPDF Laravel</title>
+    <title>{{ $title }}</title>
     <style type="text/css">
         table tr td,
         table tr th {
@@ -19,14 +19,13 @@
 <body>
 
     <div class="text-center">
-        <h5 class="mb-4">Laporan Iuran SPP Tahun {{ $year }}</h5>
+        <h5 class="mb-4">{{ $title }}</h5>
     </div>
 
     <table class="table table-bordered">
         <thead>
             <tr>
                 <!--<th>No</th>-->
-                <th>Tahun</th>
                 <th>NISN</th>
                 <th>Nama</th>
                 <th>Jan</th>
@@ -48,7 +47,6 @@
             @foreach($result as $r)
             <tr>
                 <!--<td>{{ $i++ }}</td>-->
-                <td>{{ $r->year }}</td>
                 <td>{{ $r->nisn }}</td>
                 <td>{{ $r->fullname }}</td>
                 <td class="text-right">{{ number_format($r->M01) }}</td>

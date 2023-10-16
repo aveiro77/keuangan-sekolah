@@ -1,8 +1,3 @@
-<script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, Link } from '@inertiajs/vue3';
-</script>
-
 <template>
     <Head title="Transaksi" />
 
@@ -41,6 +36,18 @@ import { Head, Link } from '@inertiajs/vue3';
         </div>
 
 
-
+        <template #footer>
+            <h2 class="text-gray-500">Periode : {{ period }}</h2>
+        </template>
     </AuthenticatedLayout>
 </template>
+
+<script setup>
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import { Head, Link } from '@inertiajs/vue3';
+
+defineProps({
+    period: String,
+});
+
+</script>

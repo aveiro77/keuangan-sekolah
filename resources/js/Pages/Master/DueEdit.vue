@@ -31,9 +31,8 @@
                         <!---->
                         <form class="row g-3" @submit.prevent="form.put(`/master/iuran/${due.id}`)">
                             <div class="col-md-6">
-                                <label for="inputyear" class="form-label">Tahun</label>
-                                <input type="number" class="form-control" id="inputyear" name="year" v-model="form.year">
-                                <span class="text-sm text-danger" v-if="form.errors.year">{{form.errors.year }}</span>
+                                <label for="inputperiod" class="form-label">Periode</label>
+                                <input type="text" class="form-control" id="inputperiod" name="period" v-model="form.period" disabled>
                             </div>
                             <div class="col-md-6" id="selectt">
                                 <label for="inputgroup" class="form-label">Rombongan Belajar</label>
@@ -68,7 +67,8 @@
                             </div>
 
 
-                            <div class="col-12">    
+                            <div class="col-12">   
+                                <input type="hidden" class="form-control" id="active_year_id" name="active_year_id" v-model="form.active_year_id"> 
                                 <button type="submit" class="btn btn-outline-dark rounded-0 w-1/2 mt-3">Simpan</button>
                             </div>
                         </form>
@@ -77,6 +77,10 @@
                 </div>
             </div>
         </div>
+
+        <template #footer>
+            <h2 class="text-gray-500">Periode : {{ period }}</h2>
+        </template>
     </AuthenticatedLayout>
 </template>
 <script setup>
@@ -89,10 +93,13 @@ const form = useForm({
     total_amount: props.due.total_amount,
     type: props.due.type,
     group: props.due.group,
-    year: props.due.year
+    period: props.period,
+    active_year_id: props.active_year_id,
 });
 
 const props = defineProps({
+    period: String,
+    active_year_id: Number,
     due: Object,
 })
 

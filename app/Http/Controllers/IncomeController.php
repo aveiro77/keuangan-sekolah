@@ -6,6 +6,7 @@ use App\Http\Requests\StoreIncomeRequest;
 use App\Http\Requests\UpdateIncomeRequest;
 use App\Models\Income;
 use App\Models\Coa;
+use App\Models\ActiveYear;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
@@ -18,10 +19,10 @@ class IncomeController extends Controller
      */
     public function index(Request $request)
     {
-        $active_year = DB::table('active_year')->where('active', 1)->pluck('year');
+        $active_year = ActiveYear::where('active', 1)->first();
         $data = Income::with(['User', 'Coa'])
             ->orderBy('id', 'desc')
-            ->whereYear('date', $active_year[0])
+            ->whereYear('date', $active_year->year)
             ->when($request->search, function ($query, $search) {
                 $query->whereHas('Coa', function ($subQuery) use ($search) {
                     $subQuery->where('name', 'like', "%{$search}%");
@@ -34,6 +35,7 @@ class IncomeController extends Controller
         return Inertia::render('Transaction/Income', [
             'incomes' => $data,
             'filters' => $request->only('search'),
+            'period' => $active_year->period,
         ]);
     }
 
@@ -42,10 +44,11 @@ class IncomeController extends Controller
      */
     public function create()
     {
-        $active_year = DB::table('active_year')->where('active', 1)->pluck('year');
-        $coas = Coa::where('year', $active_year[0])->get();
+        $active_year = ActiveYear::where('active', 1)->first();
+        $coas = Coa::where('active_year_id', $active_year->id)->get();
         return Inertia::render('Transaction/IncomeCreate', [
             'coas' => $coas,
+            'period' => $active_year->period,
         ]);
     }
 
@@ -98,11 +101,12 @@ class IncomeController extends Controller
     public function edit($id)
     {
         $trx = Income::find($id);
-        $active_year = DB::table('active_year')->where('active', 1)->pluck('year');
-        $coas = Coa::where('year', $active_year[0])->get();
+        $active_year = ActiveYear::where('active', 1)->first();
+        $coas = Coa::where('active_year_id', $active_year->id)->get();
         return Inertia::render('Transaction/IncomeEdit', [
             'income' => $trx,
             'coas' => $coas,
+            'period' => $active_year->period,
         ]);
     }
 

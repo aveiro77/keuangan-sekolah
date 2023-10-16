@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('active_year', function (Blueprint $table) {
+        Schema::create('active_years', function (Blueprint $table) {
             $table->id();
             $table->string('year')->unique();
+            $table->string('period')->require();
             $table->string('active')->require();
             $table->timestamps();
         });

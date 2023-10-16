@@ -79,6 +79,10 @@
                 </div>
             </div>
         </div>
+
+        <template #footer>
+            <h2 class="text-gray-500">Periode : {{ props.period }}</h2>
+        </template>
     </AuthenticatedLayout>
 </template>
 
@@ -93,6 +97,7 @@ import Pagination from '@/Components/Pagination.vue';
 const props = defineProps({
     mutations: Object,
     filters: Object,
+    period: String,
 })
 
 let search = ref(props.filters.search);

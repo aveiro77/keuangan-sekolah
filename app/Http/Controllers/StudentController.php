@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Models\ActiveYear;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
@@ -14,24 +15,35 @@ class StudentController extends Controller
      */
     public function index(Request $request)
     {
-        $active_year = DB::table('active_year')->where('active', '=', '1')->pluck('year');
-        $data = Student::when($request->search, function ($query, $search) {
-            $query->where('fullname', 'like', '%' . $search . '%')->orWhere('nisn', 'like', '%' . $search . '%');
-        })
-            ->where('year', $active_year)
+        $active_year = ActiveYear::where('active', 1)->first();
+        $data = Student::with('active_year')
+            ->when($request->search, function ($query, $search) {
+                $query->where('fullname', 'like', '%' . $search . '%')->orWhere('nisn', 'like', '%' . $search . '%');
+            })
+            ->whereHas('active_year', function ($query) {
+                $query->where('active', 1);
+            })
             ->paginate(8)->withQueryString();
+
         return Inertia::render('Master/Student', [
             'students' => $data,
-            'filters' => $request->only('search')
+            'filters' => $request->only('search'),
+            'period' => $active_year->period,
         ]);
     }
+
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return Inertia::render('Master/StudentCreate');
+        $active_year = ActiveYear::where('active', 1)->first();
+        return Inertia::render('Master/StudentCreate', [
+            'period' => $active_year->period,
+            'active_year_id' => $active_year->id,
+        ]);
     }
 
     /**
@@ -43,14 +55,14 @@ class StudentController extends Controller
             'nisn' => 'required|unique:students|max:25',
             'fullname' => 'required|max:128',
             'group' => 'required',
-            'year' => 'required'
+            'active_year_id' => 'required'
         ]);
 
         Student::create([
             'nisn' => $request->nisn,
             'fullname' => $request->fullname,
             'group' => $request->group,
-            'year' => $request->year
+            'active_year_id' => $request->active_year_id,
         ]);
 
         return redirect()->route('siswa.index');
@@ -69,9 +81,9 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        $data = Student::find($id);
+        $data = Student::with('active_year')->find($id);
         return Inertia::render('Master/StudentEdit', [
-            'student' => $data
+            'student' => $data,
         ]);
     }
 

@@ -6,11 +6,11 @@ use App\Models\Spp_transaction;
 use App\Models\Student;
 use App\Models\Coa;
 use App\Models\Due;
+use App\Models\ActiveYear;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
-
 
 class SppTransactionController extends Controller
 {
@@ -19,10 +19,11 @@ class SppTransactionController extends Controller
      */
     public function index(Request $request)
     {
-        $active_year = DB::table('active_year')->where('active', 1)->pluck('year');
+        //$active_year = DB::table('active_years')->where('active', 1)->pluck('year');
+        $active_year = ActiveYear::where('active', 1)->first();
         $trx = Spp_transaction::with(['Student', 'Coa', 'Due'])
             ->orderBy('id', 'desc')
-            ->whereYear('date', $active_year[0])
+            ->whereYear('date', $active_year->year)
             ->when($request->search, function ($query, $search) {
                 $query->whereHas('Student', function ($subQuery) use ($search) {
                     $subQuery->where('nisn', 'like', "%{$search}%")
@@ -36,6 +37,7 @@ class SppTransactionController extends Controller
         return Inertia::render('Transaction/DueSpp', [
             'transactions' => $trx,
             'filters' => $request->only('search'),
+            'period' => $active_year->period,
         ]);
     }
 
@@ -44,10 +46,10 @@ class SppTransactionController extends Controller
      */
     public function create(Request $request)
     {
-        $active_year = DB::table('active_year')->where('active', '=', '1')->pluck('year');
-        $students = Student::where('year', $active_year[0])->get();
-        $coas = Coa::where('year', $active_year[0])->get();
-        $dues = Due::where('year', $active_year[0])->get();
+        $active_year = ActiveYear::where('active', 1)->first();
+        $students = Student::where('active_year_id', $active_year->id)->get();
+        $coas = Coa::where('active_year_id', $active_year->id)->get();
+        $dues = Due::where('active_year_id', $active_year->id)->get();
 
         $trx = Spp_transaction::with(['Student', 'Coa', 'Due'])->orderBy('id', 'desc')->when($request->search, function ($query, $search) {
             $query->where(function ($q) use ($search) {
@@ -64,6 +66,7 @@ class SppTransactionController extends Controller
             'dues' => $dues,
             'transactions' => $trx,
             'filters' => $request->only('search'),
+            'period' => $active_year->period,
         ]);
     }
 
@@ -122,14 +125,16 @@ class SppTransactionController extends Controller
     public function edit($id)
     {
         $trx = Spp_transaction::find($id);
-        $students = Student::all();
-        $dues = Due::all();
-        $coas = Coa::all();
+        $active_year = ActiveYear::where('active', 1)->first();
+        $students = Student::where('active_year_id', $active_year->id)->get();
+        $dues = Due::where('active_year_id', $active_year->id)->get();
+        $coas = Coa::where('active_year_id', $active_year->id)->get();
         return Inertia::render('Transaction/DueSppEdit', [
             'trans' => $trx,
             'students' => $students,
             'dues' => $dues,
             'coas' => $coas,
+            'period' => $active_year->period,
         ]);
     }
 
