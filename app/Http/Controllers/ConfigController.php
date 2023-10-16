@@ -118,6 +118,25 @@ class ConfigController extends Controller
 
     public function procMasterDues(Request $request)
     {
+        try {
+            DB::statement('CALL InsertIntoDues()');
+
+            // Tindakan yang diambil jika prosedur berhasil
+            return response()->json([
+                'messageDues' => 'data rombel secara masal berhasil dijalankan',
+                'status' => 0
+            ]);
+        } catch (QueryException $e) {
+            // Tindakan yang diambil jika terjadi error
+            $errorMessage = $e->getMessage();
+
+            // Lakukan logging, tangani error, dll.
+            return response()->json([
+                'messageDues' => 'data iuran GAGAL!',
+                'status' => 0
+            ]);
+        }
+
         return response()->json([
             'message' => 'Procedure master iuran berhasil dijalankan',
             'status' => 0

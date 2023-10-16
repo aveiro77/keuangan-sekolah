@@ -166,6 +166,12 @@ const callProcedure3 = () => {
             console.log('Proc 3 response:', response.data.message);
             loadingVisible.value = response.data.status;
             statusVisible.value = response.data.status + 1;
+
+            // Showing the message into element with ID "procThree-msg"
+            const procThreeMsg = document.getElementById('procThree-msg');
+            if (procThreeMsg) {
+                procThreeMsg.innerHTML = `Message: Proses Update <strong>${response.data.messageDues}</strong>`;
+            }
         })
         .catch(error => {
             console.error('Proc 3 error:', error);
