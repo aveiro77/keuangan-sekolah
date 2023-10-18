@@ -124,7 +124,7 @@ class ConfigController extends Controller
 
             // Tindakan yang diambil jika prosedur berhasil
             return response()->json([
-                'messageDues' => 'data rombel secara masal berhasil dijalankan',
+                'messageDues' => 'master iuran berhasil dijalankan',
                 'status' => 0
             ]);
         } catch (QueryException $e) {
@@ -158,12 +158,6 @@ class ConfigController extends Controller
             'filters' => $request->only('search'),
             'period' => $active_year->period,
         ]);
-        // $activeYear = ActiveYear::where('active', 1)->first();
-        // $students = Student::all();
-        // return Inertia::render('Config/setupStudents', [
-        //     'period' => $activeYear->period,
-        //     'students' => $students,
-        // ]);
     }
 
     public function studentStatsEdit($id)

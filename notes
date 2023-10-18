@@ -1,0 +1,35 @@
+Program Pembukuan Sekolah
+
+Teknologi yang dipakai
+- Laravel 10 memanfaatkan paket starter Breeze
+- Vue.js untuk frontend dan Inertia.js sebagai penghubung FE & BE
+- DB MySql
+
+Daftar Menu :
+
+1. Dashboard
+   - Menampilkan Info rekap pemasukan dan pengeluaran
+2. Master
+   - Meliputi Daftar Rekening, Daftar Iuran, Daftar Siswa & Daftar Rekanan
+   - Setiap Daftar memiliki fitur CRUD masing-masing
+3. Transaksi
+   - Iuran Siswa 
+   - Mutasi Rekening (Perpindahan saldo antar rekening)
+   - Operasional Sekolah
+   - Pemasukan (Pemasukan diluar iuran siswa)
+4. Laporan
+   - Saldo Rekening
+   - Iuran SPP
+   - Iuran Non SPP
+   - Pengeluaran & Pemasukan
+5. Konfigurasi
+   - Setup Periode Laporan (fitur untuk mengaktifkan periode berjalan)
+   - Pendataan status siswa (naik kelas/ tinggal kelas/ transfer /drop out)
+   - Setup Master Data (Untuk duplikat master data rekening, data iuran dan update status siswa)
+
+Tambahan :
+- Setiap laporan dapat didownload pdf.
+- Pada Setup Master Data dilakukan pemanggilan Stored Procedure untuk eksekusi duplikat data rekening, data iuran dan update status siswa.
+- Beberapa kode generate by chatGPT :D
+
+Yang berminat sebagai referensi belajar atau untuk keperluan lainya silakan kirim pesan dan berikan donasi SEPANTASNYA :D
