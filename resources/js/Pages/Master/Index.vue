@@ -11,24 +11,24 @@
                 <div class="flex flex-col md:flex-row">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4 md:mb-0 md:m-2 w-full md:w-1/2">
                         <div class="p-6 text-gray-900">
-                            <a href="/master/rekening">Rekening</a>
+                            <a href="/master/rekening">Daftar Rekening</a>
                         </div>
                     </div>
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4 md:mb-0 md:m-2 w-full md:w-1/2">
                         <div class="p-6 text-gray-900">
-                            <a href="/master/siswa">Siswa</a>
+                            <a href="/master/siswa">Daftar Siswa</a>
                         </div>
                     </div>
                 </div>
                 <div class="flex flex-col md:flex-row">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4 md:mb-0 md:m-2 w-full md:w-1/2">
                         <div class="p-6 text-gray-900">
-                            <a href="/master/iuran">Iuran</a>
+                            <a href="/master/iuran">Daftar Iuran</a>
                         </div>
                     </div>
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4 md:mb-0 md:m-2 w-full md:w-1/2">
                         <div class="p-6 text-gray-900">
-                            <a href="/master/rekanan">Rekanan</a>
+                            <a href="/master/rekanan">Daftar Rekanan</a>
                         </div>
                     </div>
                 </div>

@@ -23,9 +23,9 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         \App\Models\User::factory()->create([
-            'name' => 'Jumhan',
-            'email' => 'jumhan@gmail.com',
-            'password' => Hash::make('Jumhan01'),
+            'name' => 'Admin',
+            'email' => 'admin@gmail.com',
+            'password' => Hash::make('Admin01'),
         ]);
 
         \App\Models\ActiveYear::create([

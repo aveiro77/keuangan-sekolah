@@ -48,7 +48,8 @@ class ConfigController extends Controller
 
         $db = ActiveYear::find($id);
         $db->update([
-            'active' => $request->active,
+            // 'active' => $request->active,
+            'active' => 1,
         ]);
 
         return redirect()->route('konfigurasi.periode-laporan')->with(['periods' => $data]);

@@ -16,7 +16,7 @@
                     </div>
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4 md:mb-0 md:m-2 w-full md:w-1/2">
                         <div class="p-6 text-gray-900">
-                            <a href="/transaksi/opr">Operasional</a>
+                            <a href="/transaksi/opr">Operasional Sekolah</a>
                         </div>
                     </div>
                 </div>
